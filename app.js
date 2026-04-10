@@ -458,7 +458,7 @@ function renderSummary(examDaysCount, cfg, totalSessions, startDate, endDate) {
 function renderFooter() {
     return `
     <div class="footer">
-        <p><strong>Trường Tiểu học Thái Thịnh</strong> — Kế hoạch Tổ chức Thi trên Máy tính</p>
+        <p><strong>Trường THCS Thái Thịnh</strong> — Kế hoạch Tổ chức Thi trên Máy tính</p>
         <p>Năm học 2025–2026 &nbsp;•&nbsp; Phê duyệt bởi: _________________________ &nbsp;•&nbsp; Ngày: ____/____/2026</p>
     </div>`;
 }
