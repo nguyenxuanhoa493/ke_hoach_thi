@@ -84,10 +84,9 @@ function renderSkipDates() {
 
 function isSkipped(date) {
     if (skipDates.includes(formatISO(date))) return true;
-    if (document.getElementById('skipWeekends').checked) {
-        const day = date.getDay();
-        if (day === 0 || day === 6) return true;
-    }
+    const day = date.getDay();
+    if (day === 6 && document.getElementById('skipSaturday').checked) return true;
+    if (day === 0 && document.getElementById('skipSunday').checked) return true;
     return false;
 }
 
