@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kế hoạch Tổ chức Thi - Trường Tiểu học Thái Thịnh</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ Xuất PDF</button>
+
+<!-- HEADER -->
+<div class="header">
+    <div class="container">
+        <div class="school-name">Trường Tiểu học Thái Thịnh</div>
+        <h1>📋 KẾ HOẠCH TỔ CHỨC THI TRỰC TIẾP</h1>
+        <h2>Năm học 2025 – 2026</h2>
+        <div class="date">Ngày lập: <span id="headerDate"></span> &nbsp;•&nbsp; Phiên bản: 1.0</div>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- CONFIG PANEL -->
+    <div class="config-panel no-print" id="configPanel">
+        <div class="card-title">
+            <div class="icon" style="background:var(--primary-light);color:var(--primary);">⚙️</div>
+            Thiết lập thông số tổ chức thi
+        </div>
+
+        <!-- Hàng 1: Ngày & Thời gian thi -->
+        <div class="form-grid">
+            <div class="form-group">
+                <label>📅 Ngày bắt đầu thi</label>
+                <input type="date" id="startDate">
+            </div>
+            <div class="form-group">
+                <label>⏱️ Thời gian thi (phút)</label>
+                <select id="examDuration">
+                    <option value="30">30 phút</option>
+                    <option value="35" selected>35 phút</option>
+                    <option value="40">40 phút</option>
+                    <option value="45">45 phút</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>⏸️ Nghỉ giữa 2 ca (phút)</label>
+                <select id="breakMinutes">
+                    <option value="10">10 phút</option>
+                    <option value="15" selected>15 phút</option>
+                    <option value="20">20 phút</option>
+                    <option value="25">25 phút</option>
+                    <option value="30">30 phút</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Hàng 2: Số HS mỗi khối -->
+        <div class="form-grid">
+            <div class="form-group">
+                <label>👦 Số HS Khối 6</label>
+                <input type="number" id="studentsGrade6" value="434" min="1" max="2000">
+            </div>
+            <div class="form-group">
+                <label>👦 Số HS Khối 7</label>
+                <input type="number" id="studentsGrade7" value="433" min="1" max="2000">
+            </div>
+            <div class="form-group">
+                <label>👦 Số HS Khối 8</label>
+                <input type="number" id="studentsGrade8" value="433" min="1" max="2000">
+            </div>
+        </div>
+
+        <!-- Hàng 3: Buổi sáng & chiều -->
+        <div class="form-grid" style="grid-template-columns: 1fr 1fr 1fr 1fr;">
+            <div class="form-group">
+                <label>🌅 Giờ bắt đầu sáng</label>
+                <input type="time" id="morningStart" value="07:30">
+            </div>
+            <div class="form-group">
+                <label>🔢 Số ca tối đa buổi sáng</label>
+                <select id="morningMax">
+                    <option value="2">2 ca</option>
+                    <option value="3">3 ca</option>
+                    <option value="4" selected>4 ca</option>
+                    <option value="5">5 ca</option>
+                    <option value="6">6 ca</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>🌇 Giờ bắt đầu chiều</label>
+                <input type="time" id="afternoonStart" value="13:30">
+            </div>
+            <div class="form-group">
+                <label>🔢 Số ca tối đa buổi chiều</label>
+                <select id="afternoonMax">
+                    <option value="0">Không thi chiều</option>
+                    <option value="1">1 ca</option>
+                    <option value="2">2 ca</option>
+                    <option value="3">3 ca</option>
+                    <option value="4" selected>4 ca</option>
+                    <option value="5">5 ca</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="skip-dates-section">
+            <label>🚫 Ngày không thi (nghỉ lễ, cuối tuần đặc biệt...)</label>
+            <div class="skip-dates-row">
+                <input type="date" id="skipDateInput">
+                <button class="btn-add-skip" onclick="addSkipDate()">+ Thêm ngày nghỉ</button>
+                <label style="font-size:13px;text-transform:none;display:flex;align-items:center;gap:6px;cursor:pointer;">
+                    <input type="checkbox" id="skipWeekends" checked> Tự động bỏ Thứ 7, Chủ nhật
+                </label>
+            </div>
+            <div class="skip-dates-list" id="skipDatesList"></div>
+        </div>
+
+        <button class="btn-generate" onclick="generateSchedule()">
+            🚀 Tạo lịch thi
+        </button>
+    </div>
+
+    <!-- GENERATED CONTENT -->
+    <div id="generatedContent"></div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
