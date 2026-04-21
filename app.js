@@ -44,13 +44,21 @@ function readConfig() {
     const breakMin = getInt('breakMinutes');
     const maxPerDay = morningMax + afternoonMax;
 
-    const grades = GRADE_META.map(g => ({
+    // Thứ tự khối
+    const gradeOrderStr = document.getElementById('gradeOrder').value;
+    const gradeOrder = gradeOrderStr.split(',').map(Number);
+    const orderedGradeMeta = gradeOrder.map(id => GRADE_META.find(g => g.id === id));
+
+    const grades = orderedGradeMeta.map(g => ({
         ...g,
         students: getInt(g.inputId)
     }));
     const totalStudents = grades.reduce((s, g) => s + g.students, 0);
 
-    return { morningStart, afternoonStart, morningMax, afternoonMax, maxPerDay, examMin, breakMin, grades, totalStudents };
+    // Có ngày thi bù không
+    const hasMakeupDay = document.getElementById('hasMakeupDay').value === 'yes';
+
+    return { morningStart, afternoonStart, morningMax, afternoonMax, maxPerDay, examMin, breakMin, grades, totalStudents, hasMakeupDay };
 }
 
 // ===== SKIP DATES =====
@@ -522,29 +530,31 @@ function generateSchedule() {
         currentDate.setDate(currentDate.getDate() + 1);
     }
 
-    // === NGÀY THI BÙ: 1 ca mỗi khối ===
-    while (isSkipped(currentDate)) {
-        currentDate.setDate(currentDate.getDate() + 1);
-    }
-    dayCount++;
-    const makeupSessions = [];
-    gradeSchedules.forEach((g, idx) => {
-        if (sessionTimes[idx]) {
-            makeupSessions.push({
-                grade: g,
-                sessionIdx: 0,
-                students: COMPUTERS,
-                time: sessionTimes[idx],
-                note: 'Thi bù – ' + g.name
-            });
+    // === NGÀY THI BÙ: 1 ca mỗi khối (nếu được bật) ===
+    let makeupSessions = [];
+    if (cfg.hasMakeupDay) {
+        while (isSkipped(currentDate)) {
+            currentDate.setDate(currentDate.getDate() + 1);
         }
-    });
-    examDays.push({
-        dayNum: dayCount,
-        date: new Date(currentDate),
-        sessions: makeupSessions,
-        isMakeup: true
-    });
+        dayCount++;
+        gradeSchedules.forEach((g, idx) => {
+            if (sessionTimes[idx]) {
+                makeupSessions.push({
+                    grade: g,
+                    sessionIdx: 0,
+                    students: COMPUTERS,
+                    time: sessionTimes[idx],
+                    note: 'Thi bù – ' + g.name
+                });
+            }
+        });
+        examDays.push({
+            dayNum: dayCount,
+            date: new Date(currentDate),
+            sessions: makeupSessions,
+            isMakeup: true
+        });
+    }
 
     const endDate = examDays[examDays.length - 1].date;
     const totalSessions = regularSessions + makeupSessions.length;

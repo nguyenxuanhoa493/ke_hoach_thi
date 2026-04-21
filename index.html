@@ -122,7 +122,32 @@
             </div>
         </div>
 
-        <div class="section-label">④ Ngày nghỉ (không thi)</div>
+        <!-- Hàng 4: Tùy chọn nâng cao -->
+        <div class="section-label">④ Tùy chọn nâng cao</div>
+        <div class="form-grid">
+            <div class="form-group">
+                <label>🔢 Thứ tự xếp ca thi theo khối</label>
+                <select id="gradeOrder">
+                    <option value="6,7,8" selected>Khối 6 → Khối 7 → Khối 8</option>
+                    <option value="8,7,6">Khối 8 → Khối 7 → Khối 6</option>
+                    <option value="7,6,8">Khối 7 → Khối 6 → Khối 8</option>
+                    <option value="6,8,7">Khối 6 → Khối 8 → Khối 7</option>
+                    <option value="7,8,6">Khối 7 → Khối 8 → Khối 6</option>
+                    <option value="8,6,7">Khối 8 → Khối 6 → Khối 7</option>
+                </select>
+                <span class="form-hint">Chọn thứ tự các khối sẽ thi. Khối đầu tiên thi trước.</span>
+            </div>
+            <div class="form-group">
+                <label>🔄 Ngày thi bù</label>
+                <select id="hasMakeupDay">
+                    <option value="yes" selected>Có – Thêm 1 ngày thi bù cuối kỳ</option>
+                    <option value="no">Không – Không có ngày thi bù</option>
+                </select>
+                <span class="form-hint">Ngày thi bù dành cho HS vắng mặt hoặc gặp sự cố. Mỗi khối 1 ca bù.</span>
+            </div>
+        </div>
+
+        <div class="section-label">⑤ Ngày nghỉ (không thi)</div>
         <div class="skip-dates-section">
             <label>🚫 Ngày không thi (nghỉ lễ, cuối tuần đặc biệt...)</label>
             <div class="skip-dates-row">
