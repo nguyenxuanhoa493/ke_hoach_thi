@@ -13,9 +13,9 @@
 <!-- HEADER -->
 <div class="header">
     <div class="container">
-        <div class="school-name">Trường THCS Thái Thịnh</div>
-        <h1>📋 KẾ HOẠCH TỔ CHỨC THI TRỰC TIẾP</h1>
-        <h2>Năm học 2025 – 2026</h2>
+        <div class="school-name" id="headerSchoolName">Trường THCS Thái Thịnh</div>
+        <h1 id="headerTitle">📋 KẾ HOẠCH TỔ CHỨC THI TRỰC TIẾP</h1>
+        <h2 id="headerYear">Năm học 2025 – 2026</h2>
         <div class="date">Ngày lập: <span id="headerDate"></span> &nbsp;•&nbsp; Phiên bản: 1.0</div>
     </div>
 </div>
@@ -30,11 +30,46 @@
         </div>
 
         <div class="config-intro">
-            💡 <strong>Hướng dẫn:</strong> Các thông số bên dưới là <strong>giá trị khuyến nghị</strong> của hệ thống. Thầy cô vui lòng điều chỉnh theo thực tế và mong muốn của trường, sau đó nhấn nút <strong>"🚀 Tạo lịch thi"</strong> ở cuối trang để tạo kế hoạch triển khai thi. Mỗi ca thi tối đa <strong>60 học sinh</strong> (số máy tính hiện có).
+            💡 <strong>Hướng dẫn:</strong> Các thông số bên dưới là <strong>giá trị khuyến nghị</strong> của hệ thống. Thầy cô vui lòng điều chỉnh theo thực tế của <strong>cụm trường thi</strong>, sau đó nhấn <strong>"🚀 Tạo lịch thi"</strong> để tạo kế hoạch. Mỗi trường có số phòng thi riêng, dùng chung quy chuẩn <strong>số máy/phòng</strong>. Sức chứa/ca của mỗi trường = <strong>số phòng × số máy/phòng</strong>.
         </div>
 
-        <!-- Hàng 1: Ngày & Thời gian thi -->
-        <div class="section-label">① Ngày thi & Thời lượng</div>
+        <!-- Hàng 0: Thông tin chung -->
+        <div class="section-label">⓪ Thông tin đơn vị tổ chức & kỳ thi</div>
+        <div class="form-grid">
+            <div class="form-group">
+                <label>🏛️ Đơn vị tổ chức / Cụm trường</label>
+                <input type="text" id="schoolName" value="Cụm trường thi" placeholder="VD: Phòng GD&ĐT Quận X / Cụm trường THCS ABC">
+                <span class="form-hint">Hiển thị trên đầu kế hoạch và phần phê duyệt (đơn vị chỉ đạo).</span>
+            </div>
+            <div class="form-group">
+                <label>📋 Tiêu đề kế hoạch</label>
+                <input type="text" id="planTitle" value="📋 KẾ HOẠCH TỔ CHỨC THI TRỰC TIẾP" placeholder="VD: KẾ HOẠCH TỔ CHỨC THI HỌC KỲ I">
+                <span class="form-hint">Tiêu đề lớn hiển thị trên đầu trang.</span>
+            </div>
+            <div class="form-group">
+                <label>📅 Năm học / kỳ thi</label>
+                <input type="text" id="schoolYear" value="Năm học 2025 – 2026" placeholder="VD: Năm học 2025 – 2026">
+                <span class="form-hint">Hiển thị bên dưới tiêu đề kế hoạch.</span>
+            </div>
+        </div>
+
+        <!-- Hàng 1: Quy chuẩn máy chung -->
+        <div class="section-label">① Quy chuẩn máy chung</div>
+        <div class="form-grid">
+            <div class="form-group">
+                <label>💻 Số máy / 1 phòng</label>
+                <input type="number" id="computersPerRoom" value="60" min="1" max="200">
+                <span class="form-hint">Số máy tính trong mỗi phòng thi (áp dụng chung cho toàn bộ các trường).</span>
+            </div>
+            <div class="form-group" style="grid-column:span 2;display:flex;align-items:center;">
+                <div style="background:var(--primary-light);color:var(--primary-dark);padding:10px 14px;border-radius:8px;font-size:12px;line-height:1.5;width:100%;">
+                    📌 <strong>Sức chứa/ca của mỗi trường</strong> = số phòng riêng của trường đó × số máy/phòng. Khai báo số phòng thi ngay trong từng card trường ở mục ③.
+                </div>
+            </div>
+        </div>
+
+        <!-- Hàng 2: Ngày & Thời gian thi -->
+        <div class="section-label">② Ngày thi & Thời lượng</div>
         <div class="form-grid">
             <div class="form-group">
                 <label>📅 Ngày bắt đầu thi</label>
@@ -64,28 +99,16 @@
             </div>
         </div>
 
-        <!-- Hàng 2: Số HS mỗi khối -->
-        <div class="section-label">② Số học sinh từng khối</div>
-        <div class="form-grid">
-            <div class="form-group">
-                <label>👦 Số HS Khối 6</label>
-                <input type="number" id="studentsGrade6" value="434" min="1" max="2000">
-                <span class="form-hint">Tổng số học sinh Khối 6 cần thi.</span>
-            </div>
-            <div class="form-group">
-                <label>👦 Số HS Khối 7</label>
-                <input type="number" id="studentsGrade7" value="433" min="1" max="2000">
-                <span class="form-hint">Tổng số học sinh Khối 7 cần thi.</span>
-            </div>
-            <div class="form-group">
-                <label>👦 Số HS Khối 8</label>
-                <input type="number" id="studentsGrade8" value="433" min="1" max="2000">
-                <span class="form-hint">Tổng số học sinh Khối 8 cần thi.</span>
-            </div>
+        <!-- Hàng 3: Danh sách trường thi -->
+        <div class="section-label">③ Danh sách trường thi</div>
+        <div class="schools-section">
+            <span class="form-hint" style="display:block;margin-bottom:12px;">Mỗi trường có tên, số phòng thi riêng và danh sách khối. Thứ tự thi theo thứ tự khối trong từng trường – dùng nút ▲▼ để sắp xếp.</span>
+            <div id="schoolsList"></div>
+            <button class="btn-add-school" type="button" onclick="addSchool()">+ Thêm trường thi</button>
         </div>
 
-        <!-- Hàng 3: Buổi sáng & chiều -->
-        <div class="section-label">③ Lịch buổi sáng & chiều</div>
+        <!-- Hàng 4: Buổi sáng & chiều -->
+        <div class="section-label">④ Lịch buổi sáng & chiều</div>
         <div class="form-grid" style="grid-template-columns: 1fr 1fr 1fr 1fr;">
             <div class="form-group">
                 <label>🌅 Giờ bắt đầu sáng</label>
@@ -122,21 +145,9 @@
             </div>
         </div>
 
-        <!-- Hàng 4: Tùy chọn nâng cao -->
-        <div class="section-label">④ Tùy chọn nâng cao</div>
+        <!-- Hàng 5: Tùy chọn nâng cao -->
+        <div class="section-label">⑤ Tùy chọn nâng cao</div>
         <div class="form-grid">
-            <div class="form-group">
-                <label>🔢 Thứ tự xếp ca thi theo khối</label>
-                <select id="gradeOrder">
-                    <option value="6,7,8" selected>Khối 6 → Khối 7 → Khối 8</option>
-                    <option value="8,7,6">Khối 8 → Khối 7 → Khối 6</option>
-                    <option value="7,6,8">Khối 7 → Khối 6 → Khối 8</option>
-                    <option value="6,8,7">Khối 6 → Khối 8 → Khối 7</option>
-                    <option value="7,8,6">Khối 7 → Khối 8 → Khối 6</option>
-                    <option value="8,6,7">Khối 8 → Khối 6 → Khối 7</option>
-                </select>
-                <span class="form-hint">Chọn thứ tự các khối sẽ thi. Khối đầu tiên thi trước.</span>
-            </div>
             <div class="form-group">
                 <label>🔄 Ngày thi bù</label>
                 <select id="hasMakeupDay">
@@ -147,7 +158,7 @@
             </div>
         </div>
 
-        <div class="section-label">⑤ Ngày nghỉ (không thi)</div>
+        <div class="section-label">⑥ Ngày nghỉ (không thi)</div>
         <div class="skip-dates-section">
             <label>🚫 Ngày không thi (nghỉ lễ, cuối tuần đặc biệt...)</label>
             <div class="skip-dates-row">
